@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Button, Typography, Paper, Grid, TextField } from '@mui/material';
+import { Box, Button, Typography, Paper, Grid2 as Grid, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ArrowDown, Download, Share } from 'lucide-react';
 import { MemeTemplate, TextElement } from '../types/meme';
@@ -33,7 +33,7 @@ interface MemeEditorProps {
 const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGallery }) => {
   const [textElements, setTextElements] = useState<TextElement[]>([]);
   const [selectedTextId, setSelectedTextId] = useState<string | null>(null);
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKey] = useState<string>('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');
   const [isGeneratingCaption, setIsGeneratingCaption] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
@@ -106,15 +106,6 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
   };
 
   const handleGenerateCaption = async () => {
-    if (!apiKey.trim()) {
-      toast({
-        title: "API Key Required",
-        description: "Please enter your OpenAI API key to generate captions.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     if (!selectedTemplate) return;
 
     setIsGeneratingCaption(true);
@@ -217,7 +208,7 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid xs={12} md={8}>
           <CanvasContainer>
             <MemeCanvas
               ref={canvasRef}
@@ -256,27 +247,19 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid xs={12} md={4}>
           <Box mb={3}>
             <Typography variant="h6" gutterBottom>
               AI Caption Generator
             </Typography>
-            <TextField
-              fullWidth
-              label="OpenAI API Key"
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              margin="normal"
-              size="small"
-              helperText="Enter your OpenAI API key to generate funny captions"
-            />
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              OpenAI API key is configured. Click below to generate funny captions!
+            </Typography>
             <Button
               fullWidth
               variant="contained"
               onClick={handleGenerateCaption}
               disabled={isGeneratingCaption}
-              sx={{ mt: 1 }}
             >
               {isGeneratingCaption ? 'Generating...' : 'Generate Caption'}
             </Button>

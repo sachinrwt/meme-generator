@@ -1,7 +1,7 @@
 
 import { MemeTemplate } from '../types/meme';
 
-export const popularM1Templates: MemeTemplate[] = [
+export const popularMemeTemplates: MemeTemplate[] = [
   {
     id: 'drake-pointing',
     name: 'Drake Pointing',

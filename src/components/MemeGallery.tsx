@@ -1,45 +1,8 @@
 
 import React, { useState } from 'react';
-import { Card, CardMedia, CardContent, Typography, Box, Button, Input } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { Upload, Image } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { MemeTemplate } from '../types/meme';
 import { popularMemeTemplates } from '../utils/memeTemplates';
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-  '&:hover': {
-    transform: 'translateY(-8px)',
-    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-  },
-}));
-
-const UploadCard = styled(Card)(({ theme }) => ({
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  border: '2px dashed rgba(255, 255, 255, 0.5)',
-  color: 'white',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: 200,
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderColor: 'rgba(255, 255, 255, 0.8)',
-  },
-}));
-
-const ResponsiveGrid = styled(Box)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-  gap: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: '1fr',
-  },
-}));
 
 interface MemeGalleryProps {
   onTemplateSelect: (template: MemeTemplate) => void;
@@ -71,57 +34,54 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
   };
 
   return (
-    <Box>
-      <Typography variant="h4" component="h2" gutterBottom sx={{ color: 'white', textAlign: 'center', mb: 4 }}>
+    <div className="space-y-6">
+      <h2 className="text-4xl font-bold text-white text-center mb-8">
         Choose a Meme Template
-      </Typography>
+      </h2>
       
-      <ResponsiveGrid>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Upload Custom Image Card */}
-        <Box>
+        <div>
           <input
             accept="image/*"
-            style={{ display: 'none' }}
+            className="hidden"
             id="upload-button"
             type="file"
             onChange={handleImageUpload}
           />
-          <label htmlFor="upload-button">
-            <UploadCard>
-              <Box textAlign="center">
-                <Upload size={48} style={{ marginBottom: 16 }} />
-                <Typography variant="h6" gutterBottom>
-                  Upload Your Image
-                </Typography>
-                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                  Click to select an image from your device
-                </Typography>
-              </Box>
-            </UploadCard>
+          <label htmlFor="upload-button" className="cursor-pointer">
+            <div className="min-h-[200px] bg-white/10 border-2 border-dashed border-white/50 rounded-lg flex flex-col items-center justify-center text-white hover:bg-white/20 hover:border-white/80 transition-all duration-300 p-6">
+              <Upload size={48} className="mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Upload Your Image</h3>
+              <p className="text-sm opacity-80 text-center">
+                Click to select an image from your device
+              </p>
+            </div>
           </label>
-        </Box>
+        </div>
 
         {/* Meme Templates */}
         {popularMemeTemplates.map((template) => (
-          <Box key={template.id}>
-            <StyledCard onClick={() => onTemplateSelect(template)}>
-              <CardMedia
-                component="img"
-                height="200"
-                image={template.url}
+          <div key={template.id}>
+            <div 
+              onClick={() => onTemplateSelect(template)}
+              className="bg-white/90 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            >
+              <img
+                src={template.url}
                 alt={template.name}
-                sx={{ objectFit: 'cover' }}
+                className="w-full h-48 object-cover"
               />
-              <CardContent>
-                <Typography variant="h6" component="div" textAlign="center">
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-center text-gray-800">
                   {template.name}
-                </Typography>
-              </CardContent>
-            </StyledCard>
-          </Box>
+                </h3>
+              </div>
+            </div>
+          </div>
         ))}
-      </ResponsiveGrid>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -1,38 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Button, Typography, Paper, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { ArrowDown, Download, Share } from 'lucide-react';
+import { ArrowLeft, Download, Share, Plus } from 'lucide-react';
 import { MemeTemplate, TextElement } from '../types/meme';
 import MemeCanvas from './MemeCanvas';
 import TextControls from './TextControls';
 import { generateAICaption } from '../utils/aiCaptions';
 import { useToast } from '../hooks/use-toast';
-
-const EditorContainer = styled(Paper)(({ theme }) => ({
-  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-  borderRadius: theme.spacing(2),
-  padding: theme.spacing(3),
-  minHeight: '70vh',
-}));
-
-const CanvasContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  marginBottom: theme.spacing(2),
-  padding: theme.spacing(2),
-  backgroundColor: '#f5f5f5',
-  borderRadius: theme.spacing(1),
-}));
-
-const ResponsiveLayout = styled(Box)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gap: theme.spacing(3),
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: '2fr 1fr',
-  },
-}));
 
 interface MemeEditorProps {
   selectedTemplate: MemeTemplate | null;
@@ -192,33 +165,36 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
 
   if (!selectedTemplate) {
     return (
-      <Box textAlign="center" py={8}>
-        <Typography variant="h5" gutterBottom>
-          No template selected
-        </Typography>
-        <Button variant="contained" onClick={onBackToGallery}>
+      <div className="text-center py-16">
+        <h2 className="text-2xl font-semibold mb-4">No template selected</h2>
+        <button 
+          onClick={onBackToGallery}
+          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        >
           Back to Gallery
-        </Button>
-      </Box>
+        </button>
+      </div>
     );
   }
 
   const selectedText = textElements.find(text => text.id === selectedTextId);
 
   return (
-    <EditorContainer>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h4" component="h2">
-          Meme Editor
-        </Typography>
-        <Button variant="outlined" onClick={onBackToGallery}>
+    <div className="bg-white/95 rounded-2xl p-6 min-h-[70vh]">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-bold">Meme Editor</h2>
+        <button 
+          onClick={onBackToGallery}
+          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          <ArrowLeft size={20} />
           Back to Gallery
-        </Button>
-      </Box>
+        </button>
+      </div>
 
-      <ResponsiveLayout>
-        <Box>
-          <CanvasContainer>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <div className="flex justify-center mb-4 p-4 bg-gray-100 rounded-lg">
             <MemeCanvas
               ref={canvasRef}
               template={selectedTemplate}
@@ -227,52 +203,47 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
               onTextSelect={setSelectedTextId}
               onTextUpdate={handleTextUpdate}
             />
-          </CanvasContainer>
+          </div>
 
-          <Box display="flex" gap={2} justifyContent="center" flexWrap="wrap">
-            <Button
-              variant="contained"
+          <div className="flex gap-3 justify-center flex-wrap">
+            <button
               onClick={handleAddText}
-              color="primary"
+              className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
             >
+              <Plus size={20} />
               Add Text
-            </Button>
-            <Button
-              variant="contained"
+            </button>
+            <button
               onClick={handleDownload}
-              startIcon={<Download />}
-              color="success"
+              className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
             >
+              <Download size={20} />
               Download
-            </Button>
-            <Button
-              variant="contained"
+            </button>
+            <button
               onClick={handleShare}
-              startIcon={<Share />}
-              color="info"
+              className="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors"
             >
+              <Share size={20} />
               Share
-            </Button>
-          </Box>
-        </Box>
+            </button>
+          </div>
+        </div>
 
-        <Box>
-          <Box mb={3}>
-            <Typography variant="h6" gutterBottom>
-              AI Caption Generator
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <div className="space-y-6">
+          <div className="bg-blue-50 rounded-lg p-4">
+            <h3 className="text-lg font-semibold mb-2">AI Caption Generator</h3>
+            <p className="text-sm text-gray-600 mb-4">
               OpenAI API key is configured. Click below to generate funny captions!
-            </Typography>
-            <Button
-              fullWidth
-              variant="contained"
+            </p>
+            <button
               onClick={handleGenerateCaption}
               disabled={isGeneratingCaption}
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 disabled:bg-blue-300 transition-colors"
             >
               {isGeneratingCaption ? 'Generating...' : 'Generate Caption'}
-            </Button>
-          </Box>
+            </button>
+          </div>
 
           {selectedText && (
             <TextControls
@@ -281,9 +252,9 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
               onDelete={() => handleTextDelete(selectedText.id)}
             />
           )}
-        </Box>
-      </ResponsiveLayout>
-    </EditorContainer>
+        </div>
+      </div>
+    </div>
   );
 };
 

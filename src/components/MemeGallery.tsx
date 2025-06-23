@@ -69,7 +69,7 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
       
       <Grid container spacing={3}>
         {/* Upload Custom Image Card */}
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid xs={12} sm={6} md={4}>
           <input
             accept="image/*"
             style={{ display: 'none' }}
@@ -94,7 +94,7 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
 
         {/* Meme Templates */}
         {popularMemeTemplates.map((template) => (
-          <Grid item xs={12} sm={6} md={4} key={template.id}>
+          <Grid xs={12} sm={6} md={4} key={template.id}>
             <StyledCard onClick={() => onTemplateSelect(template)}>
               <CardMedia
                 component="img"

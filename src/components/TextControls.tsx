@@ -65,7 +65,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
       </Box>
 
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid xs={12}>
           <TextField
             fullWidth
             label="Text Content"
@@ -76,7 +76,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <Typography gutterBottom>Font Size: {textElement.fontSize}px</Typography>
           <Slider
             value={textElement.fontSize}
@@ -87,7 +87,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Font Family</InputLabel>
             <Select
@@ -103,7 +103,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Text Alignment</InputLabel>
             <Select
@@ -117,7 +117,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Font Weight</InputLabel>
             <Select
@@ -130,7 +130,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid xs={6}>
           <Box>
             <Typography gutterBottom>Text Color</Typography>
             <ColorInput
@@ -141,7 +141,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           </Box>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid xs={6}>
           <FormControlLabel
             control={
               <Switch
@@ -154,7 +154,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
         </Grid>
 
         {textElement.stroke && (
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Box>
               <Typography gutterBottom>Outline Color</Typography>
               <ColorInput
@@ -166,7 +166,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           </Grid>
         )}
 
-        <Grid item xs={6}>
+        <Grid xs={6}>
           <Typography gutterBottom>X Position: {Math.round(textElement.x)}</Typography>
           <Slider
             value={textElement.x}
@@ -177,7 +177,7 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid xs={6}>
           <Typography gutterBottom>Y Position: {Math.round(textElement.y)}</Typography>
           <Slider
             value={textElement.y}

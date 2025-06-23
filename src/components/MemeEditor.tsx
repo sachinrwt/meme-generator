@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, Button, Typography, Paper, Grid, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -208,7 +207,7 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid xs={12} md={8}>
           <CanvasContainer>
             <MemeCanvas
               ref={canvasRef}
@@ -247,7 +246,7 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid xs={12} md={4}>
           <Box mb={3}>
             <Typography variant="h6" gutterBottom>
               AI Caption Generator

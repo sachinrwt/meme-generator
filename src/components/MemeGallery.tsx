@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid2 as Grid, Card, CardMedia, CardContent, Typography, Box, Button, Input } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Box, Button, Input } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Upload, Image } from 'lucide-react';
 import { MemeTemplate } from '../types/meme';
@@ -69,7 +69,7 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
       
       <Grid container spacing={3}>
         {/* Upload Custom Image Card */}
-        <Grid xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={4}>
           <input
             accept="image/*"
             style={{ display: 'none' }}
@@ -94,7 +94,7 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
 
         {/* Meme Templates */}
         {popularMemeTemplates.map((template) => (
-          <Grid xs={12} sm={6} md={4} key={template.id}>
+          <Grid item xs={12} sm={6} md={4} key={template.id}>
             <StyledCard onClick={() => onTemplateSelect(template)}>
               <CardMedia
                 component="img"

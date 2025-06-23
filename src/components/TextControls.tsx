@@ -12,7 +12,6 @@ import {
   Button,
   Switch,
   FormControlLabel,
-  Grid,
   Paper,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -29,6 +28,19 @@ const ColorInput = styled('input')({
   border: 'none',
   borderRadius: 4,
   cursor: 'pointer',
+});
+
+const ResponsiveGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: theme.spacing(2),
+  [theme.breakpoints.up('sm')]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+  },
+}));
+
+const FullWidthBox = styled(Box)({
+  gridColumn: '1 / -1',
 });
 
 interface TextControlsProps {
@@ -64,8 +76,8 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
         </Button>
       </Box>
 
-      <Grid container spacing={2}>
-        <Grid xs={12}>
+      <ResponsiveGrid>
+        <FullWidthBox>
           <TextField
             fullWidth
             label="Text Content"
@@ -74,9 +86,9 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             multiline
             rows={2}
           />
-        </Grid>
+        </FullWidthBox>
 
-        <Grid xs={12} sm={6}>
+        <Box>
           <Typography gutterBottom>Font Size: {textElement.fontSize}px</Typography>
           <Slider
             value={textElement.fontSize}
@@ -85,9 +97,9 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             max={72}
             step={1}
           />
-        </Grid>
+        </Box>
 
-        <Grid xs={12} sm={6}>
+        <Box>
           <FormControl fullWidth>
             <InputLabel>Font Family</InputLabel>
             <Select
@@ -101,9 +113,9 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
               ))}
             </Select>
           </FormControl>
-        </Grid>
+        </Box>
 
-        <Grid xs={12} sm={6}>
+        <Box>
           <FormControl fullWidth>
             <InputLabel>Text Alignment</InputLabel>
             <Select
@@ -115,9 +127,9 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
               <MenuItem value="right">Right</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
+        </Box>
 
-        <Grid xs={12} sm={6}>
+        <Box>
           <FormControl fullWidth>
             <InputLabel>Font Weight</InputLabel>
             <Select
@@ -128,20 +140,18 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
               <MenuItem value="bold">Bold</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
+        </Box>
 
-        <Grid xs={6}>
-          <Box>
-            <Typography gutterBottom>Text Color</Typography>
-            <ColorInput
-              type="color"
-              value={textElement.color}
-              onChange={(e) => onUpdate({ color: e.target.value })}
-            />
-          </Box>
-        </Grid>
+        <Box>
+          <Typography gutterBottom>Text Color</Typography>
+          <ColorInput
+            type="color"
+            value={textElement.color}
+            onChange={(e) => onUpdate({ color: e.target.value })}
+          />
+        </Box>
 
-        <Grid xs={6}>
+        <Box>
           <FormControlLabel
             control={
               <Switch
@@ -151,22 +161,20 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             }
             label="Text Outline"
           />
-        </Grid>
+        </Box>
 
         {textElement.stroke && (
-          <Grid xs={12}>
-            <Box>
-              <Typography gutterBottom>Outline Color</Typography>
-              <ColorInput
-                type="color"
-                value={textElement.strokeColor}
-                onChange={(e) => onUpdate({ strokeColor: e.target.value })}
-              />
-            </Box>
-          </Grid>
+          <FullWidthBox>
+            <Typography gutterBottom>Outline Color</Typography>
+            <ColorInput
+              type="color"
+              value={textElement.strokeColor}
+              onChange={(e) => onUpdate({ strokeColor: e.target.value })}
+            />
+          </FullWidthBox>
         )}
 
-        <Grid xs={6}>
+        <Box>
           <Typography gutterBottom>X Position: {Math.round(textElement.x)}</Typography>
           <Slider
             value={textElement.x}
@@ -175,9 +183,9 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             max={500}
             step={1}
           />
-        </Grid>
+        </Box>
 
-        <Grid xs={6}>
+        <Box>
           <Typography gutterBottom>Y Position: {Math.round(textElement.y)}</Typography>
           <Slider
             value={textElement.y}
@@ -186,8 +194,8 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             max={500}
             step={1}
           />
-        </Grid>
-      </Grid>
+        </Box>
+      </ResponsiveGrid>
     </ControlsContainer>
   );
 };

@@ -1,5 +1,6 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Button, Typography, Paper, Grid, TextField } from '@mui/material';
+import { Box, Button, Typography, Paper, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ArrowDown, Download, Share } from 'lucide-react';
 import { MemeTemplate, TextElement } from '../types/meme';
@@ -22,6 +23,15 @@ const CanvasContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: '#f5f5f5',
   borderRadius: theme.spacing(1),
+}));
+
+const ResponsiveLayout = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: theme.spacing(3),
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: '2fr 1fr',
+  },
 }));
 
 interface MemeEditorProps {
@@ -206,8 +216,8 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
         </Button>
       </Box>
 
-      <Grid container spacing={3}>
-        <Grid xs={12} md={8}>
+      <ResponsiveLayout>
+        <Box>
           <CanvasContainer>
             <MemeCanvas
               ref={canvasRef}
@@ -244,9 +254,9 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
               Share
             </Button>
           </Box>
-        </Grid>
+        </Box>
 
-        <Grid xs={12} md={4}>
+        <Box>
           <Box mb={3}>
             <Typography variant="h6" gutterBottom>
               AI Caption Generator
@@ -271,8 +281,8 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
               onDelete={() => handleTextDelete(selectedText.id)}
             />
           )}
-        </Grid>
-      </Grid>
+        </Box>
+      </ResponsiveLayout>
     </EditorContainer>
   );
 };

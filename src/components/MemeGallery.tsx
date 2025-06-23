@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography, Box, Button, Input } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box, Button, Input } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Upload, Image } from 'lucide-react';
 import { MemeTemplate } from '../types/meme';
@@ -29,6 +29,15 @@ const UploadCard = styled(Card)(({ theme }) => ({
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderColor: 'rgba(255, 255, 255, 0.8)',
+  },
+}));
+
+const ResponsiveGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+  gap: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '1fr',
   },
 }));
 
@@ -67,9 +76,9 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
         Choose a Meme Template
       </Typography>
       
-      <Grid container spacing={3}>
+      <ResponsiveGrid>
         {/* Upload Custom Image Card */}
-        <Grid xs={12} sm={6} md={4}>
+        <Box>
           <input
             accept="image/*"
             style={{ display: 'none' }}
@@ -90,11 +99,11 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
               </Box>
             </UploadCard>
           </label>
-        </Grid>
+        </Box>
 
         {/* Meme Templates */}
         {popularMemeTemplates.map((template) => (
-          <Grid xs={12} sm={6} md={4} key={template.id}>
+          <Box key={template.id}>
             <StyledCard onClick={() => onTemplateSelect(template)}>
               <CardMedia
                 component="img"
@@ -109,9 +118,9 @@ const MemeGallery: React.FC<MemeGalleryProps> = ({ onTemplateSelect }) => {
                 </Typography>
               </CardContent>
             </StyledCard>
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </ResponsiveGrid>
     </Box>
   );
 };

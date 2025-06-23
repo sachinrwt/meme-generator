@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowLeft, Download, Share, Plus } from 'lucide-react';
 import { MemeTemplate, TextElement } from '../types/meme';
@@ -22,7 +21,6 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
 
   useEffect(() => {
     if (selectedTemplate) {
-      // Initialize with default text elements
       const defaultTexts: TextElement[] = [
         {
           id: 'top-text',
@@ -144,7 +142,6 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
             files: [new File([blob], 'meme.png', { type: 'image/png' })],
           });
         } else {
-          // Fallback: copy to clipboard
           await navigator.clipboard.write([
             new ClipboardItem({ 'image/png': blob })
           ]);
@@ -166,10 +163,10 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
   if (!selectedTemplate) {
     return (
       <div className="text-center py-16">
-        <h2 className="text-2xl font-semibold mb-4">No template selected</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">No template selected</h2>
         <button 
           onClick={onBackToGallery}
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          className="bg-green-800 dark:bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-colors"
         >
           Back to Gallery
         </button>
@@ -180,12 +177,12 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
   const selectedText = textElements.find(text => text.id === selectedTextId);
 
   return (
-    <div className="bg-white/95 rounded-2xl p-6 min-h-[70vh]">
+    <div className="min-h-[70vh]">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Meme Editor</h2>
+        <h2 className="text-2xl font-bold text-green-800 dark:text-green-400">Meme Editor</h2>
         <button 
           onClick={onBackToGallery}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-300"
         >
           <ArrowLeft size={20} />
           Back to Gallery
@@ -194,7 +191,7 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <div className="flex justify-center mb-4 p-4 bg-gray-100 rounded-lg">
+          <div className="flex justify-center mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <MemeCanvas
               ref={canvasRef}
               template={selectedTemplate}
@@ -208,21 +205,21 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
           <div className="flex gap-3 justify-center flex-wrap">
             <button
               onClick={handleAddText}
-              className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              className="flex items-center gap-2 bg-green-800 dark:bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-colors"
             >
               <Plus size={20} />
               Add Text
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+              className="flex items-center gap-2 bg-green-800 dark:bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-colors"
             >
               <Download size={20} />
               Download
             </button>
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors"
+              className="flex items-center gap-2 bg-green-800 dark:bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-colors"
             >
               <Share size={20} />
               Share
@@ -231,15 +228,15 @@ const MemeEditor: React.FC<MemeEditorProps> = ({ selectedTemplate, onBackToGalle
         </div>
 
         <div className="space-y-6">
-          <div className="bg-blue-50 rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-2">AI Caption Generator</h3>
-            <p className="text-sm text-gray-600 mb-4">
-              OpenAI API key is configured. Click below to generate funny captions!
+          <div className="bg-green-50 dark:bg-gray-700 rounded-lg p-4 border border-green-200 dark:border-green-600">
+            <h3 className="text-lg font-semibold mb-2 text-green-800 dark:text-green-400">AI Caption Generator</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+              Generate funny captions automatically
             </p>
             <button
               onClick={handleGenerateCaption}
               disabled={isGeneratingCaption}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 disabled:bg-blue-300 transition-colors"
+              className="w-full bg-green-800 dark:bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 disabled:bg-green-400 dark:disabled:bg-green-400 transition-colors"
             >
               {isGeneratingCaption ? 'Generating...' : 'Generate Caption'}
             </button>

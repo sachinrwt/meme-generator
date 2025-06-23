@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import MemeGallery from '../components/MemeGallery';
 import MemeEditor from '../components/MemeEditor';
+import ThemeToggle from '../components/ThemeToggle';
 import { MemeTemplate } from '../types/meme';
 
 const Index = () => {
@@ -10,7 +11,7 @@ const Index = () => {
 
   const handleTemplateSelect = (template: MemeTemplate) => {
     setSelectedTemplate(template);
-    setCurrentTab(1); // Switch to editor tab
+    setCurrentTab(1);
   };
 
   const handleTabChange = (newValue: number) => {
@@ -23,34 +24,41 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8 text-white">
-          <h1 className="text-5xl font-bold mb-4">🎭 Meme Generator</h1>
-          <p className="text-xl opacity-90">Create hilarious memes with AI-powered captions!</p>
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <div className="max-w-7xl mx-auto p-4">
+        <div className="flex justify-between items-center mb-8">
+          <div className="text-center flex-1">
+            <h1 className="text-4xl font-bold text-green-800 dark:text-green-400 mb-2">
+              Meme Generator
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Create hilarious memes with AI-powered captions
+            </p>
+          </div>
+          <ThemeToggle />
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden">
-          <div className="flex justify-center bg-white/5">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="flex justify-center border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={() => handleTabChange(0)}
-              className={`px-6 py-3 font-semibold transition-colors ${
+              className={`px-8 py-4 font-semibold transition-colors ${
                 currentTab === 0 
-                  ? 'text-white border-b-2 border-white' 
-                  : 'text-white/70 hover:text-white'
+                  ? 'text-green-800 dark:text-green-400 border-b-2 border-green-800 dark:border-green-400 bg-green-50 dark:bg-gray-700' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-300'
               }`}
             >
-              Meme Gallery
+              Gallery
             </button>
             <button
               onClick={() => handleTabChange(1)}
-              className={`px-6 py-3 font-semibold transition-colors ${
+              className={`px-8 py-4 font-semibold transition-colors ${
                 currentTab === 1 
-                  ? 'text-white border-b-2 border-white' 
-                  : 'text-white/70 hover:text-white'
+                  ? 'text-green-800 dark:text-green-400 border-b-2 border-green-800 dark:border-green-400 bg-green-50 dark:bg-gray-700' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-300'
               }`}
             >
-              Meme Editor
+              Editor
             </button>
           </div>
 

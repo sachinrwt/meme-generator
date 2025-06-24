@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TextElement } from '../types/meme';
 
@@ -19,6 +18,19 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
     'Georgia',
     'Comic Sans MS',
     'Impact',
+  ];
+
+  const presetColors = [
+    '#FFFFFF', // White
+    '#000000', // Black
+    '#FF0000', // Red
+    '#00FF00', // Green
+    '#0000FF', // Blue
+    '#FFFF00', // Yellow
+    '#FF00FF', // Magenta
+    '#00FFFF', // Cyan
+    '#FFA500', // Orange
+    '#800080', // Purple
   ];
 
   return (
@@ -111,12 +123,18 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Text Color
             </label>
-            <input
-              type="color"
-              value={textElement.color}
-              onChange={(e) => onUpdate({ color: e.target.value })}
-              className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-            />
+            <div className="flex items-center space-x-2">
+              <input
+                type="color"
+                value={textElement.color}
+                onChange={(e) => onUpdate({ color: e.target.value })}
+                className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                title="Choose text color"
+              />
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                {textElement.color.toUpperCase()}
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -137,11 +155,33 @@ const TextControls: React.FC<TextControlsProps> = ({ textElement, onUpdate, onDe
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Outline Color
               </label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="color"
+                  value={textElement.strokeColor}
+                  onChange={(e) => onUpdate({ strokeColor: e.target.value })}
+                  className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                  title="Choose outline color"
+                />
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {textElement.strokeColor.toUpperCase()}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {textElement.stroke && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Outline Width: {textElement.strokeWidth}px
+              </label>
               <input
-                type="color"
-                value={textElement.strokeColor}
-                onChange={(e) => onUpdate({ strokeColor: e.target.value })}
-                className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                type="range"
+                min={1}
+                max={20}
+                value={textElement.strokeWidth}
+                onChange={(e) => onUpdate({ strokeWidth: parseInt(e.target.value) })}
+                className="w-full accent-green-600"
               />
             </div>
           )}

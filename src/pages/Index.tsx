@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import MemeGallery from '../components/MemeGallery';
 import MemeEditor from '../components/MemeEditor';
+import TrendingMemes from '../components/TrendingMemes';
 import ThemeToggle from '../components/ThemeToggle';
 import { MemeTemplate } from '../types/meme';
 
@@ -60,6 +60,16 @@ const Index = () => {
             >
               Editor
             </button>
+            <button
+              onClick={() => handleTabChange(2)}
+              className={`px-8 py-4 font-semibold transition-colors ${
+                currentTab === 2 
+                  ? 'text-green-800 dark:text-green-400 border-b-2 border-green-800 dark:border-green-400 bg-green-50 dark:bg-gray-700' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-300'
+              }`}
+            >
+              Trending
+            </button>
           </div>
 
           <div className="p-6">
@@ -71,6 +81,9 @@ const Index = () => {
                 selectedTemplate={selectedTemplate} 
                 onBackToGallery={handleBackToGallery}
               />
+            )}
+            {currentTab === 2 && (
+              <TrendingMemes onTemplateSelect={handleTemplateSelect} />
             )}
           </div>
         </div>

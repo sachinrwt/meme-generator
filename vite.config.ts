@@ -8,7 +8,12 @@ export default defineConfig({
     host: "::",
     port: 8080,
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    mode === 'development' &&
+    componentTagger(),
+  ].filter(Boolean),
+  base: "/meme-ai-canvas-craft/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
